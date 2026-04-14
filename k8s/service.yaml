@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contact-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: contact-backend
+  template:
+    metadata:
+      labels:
+        app: contact-backend
+    spec:
+      containers:
+      - name: backend
+        image: <ECR-IMAGE>:latest
+        ports:
+        - containerPort: 5000
+
+        envFrom:
+        - secretRef:
+            name: db-secret
